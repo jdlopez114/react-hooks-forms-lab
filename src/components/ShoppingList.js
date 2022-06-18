@@ -3,37 +3,22 @@ import ItemForm from "./ItemForm";
 import Filter from "./Filter";
 import Item from "./Item";
 
-function ShoppingList({ items }) {
+function ShoppingList({ items, onItemFormSubmit}) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [search, setSearch] = useState("");
-  const [addItem, setAddItem] = useState(items)
+  // const [addItem, setAddItem] = useState(items)
 
   function handleCategoryChange(event) {
     setSelectedCategory(event.target.value);
   }
 
-  let itemsToDisplay = addItem
-  .filter((item) => {
-    if (selectedCategory === "All") return true;
-
-    return item.category === selectedCategory;
-  })
-  .filter((item) => {
-    if (search === "") {
-      return true;
-    } else {
-      return item.name.includes(search);
-    }
-  });
-
-  itemsToDisplay = itemsToDisplay.filter(item => (item.name.toLowerCase().includes(search.toLowerCase())))
+  let itemsToDisplay = items
+  .filter(
+    (item) => (selectedCategory === "All") || item.category === selectedCategory)
+  .filter(item => (item.name.toLowerCase().includes(search.toLowerCase())))
 
   function handleSearchChange (event){
     setSearch(event.target.value)
-  }
-
-  function onItemFormSubmit(event){
-    setAddItem([...addItem, event])
   }
 
   return (

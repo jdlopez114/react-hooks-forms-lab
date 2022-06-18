@@ -11,8 +11,8 @@ function App() {
     setIsDarkMode((isDarkMode) => !isDarkMode);
   }
 
-  function handleSetItems(){
-    setItems((items) => items)
+  function onItemFormSubmit(item){
+    setItems([...items, item])
   }
 
   return (
@@ -21,7 +21,7 @@ function App() {
         isDarkMode={isDarkMode} 
         onDarkModeClick={handleDarkModeClick} 
       />
-      <ShoppingList items={handleSetItems} />
+      <ShoppingList items={itemData} onItemFormSubmit={onItemFormSubmit}/>
     </div>
   );
 }
